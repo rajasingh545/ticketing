@@ -1,0 +1,24 @@
+{
+  "name": "common",
+  "version": "1.0.0",
+  "description": "Common package for ticketing services",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "files": [
+    "build/**/*"
+  ],
+  "scripts": {
+    "test": "jest",
+    "build": "tsc"
+  },
+  "author": "Rajasingh Selvakumar",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1"
+  }
+}
