@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: data-store
+  namespace: default
+data:
+  tickets-mongo-uri: "mongodb://tickets-mongo-srv:27017/tickets"
+  auth-mongo-uri: "mongodb://auth-mongo-srv:27017/auth"
+  api-path: "/api"

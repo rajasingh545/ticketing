@@ -7,10 +7,12 @@ import {
   errorHandler,
   currentUser,
 } from "@rajasingh545/ticketing-package";
+import * as trpcExpress from "@trpc/server/adapters/express";
 
+import { ticketRouter } from "./trpc";
 import { createTicketRouter } from "./routes/new";
 
-const basePath = process.env.API_PATH! ?? "/api";
+export const basePath = process.env.API_PATH! ?? "/api";
 
 const app = express();
 
@@ -20,6 +22,13 @@ app.use(
   cookieSession({
     signed: false,
     secure: process.env.NODE_ENV !== "test",
+  })
+);
+
+app.use(
+  `${basePath}/trpc`,
+  trpcExpress.createExpressMiddleware({
+    router: ticketRouter,
   })
 );
 

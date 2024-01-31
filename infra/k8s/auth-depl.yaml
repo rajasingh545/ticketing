@@ -21,6 +21,11 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
+            - name: MONGO_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: data-store
+                  key: auth-mongo-uri
 ---
 apiVersion: v1
 kind: Service

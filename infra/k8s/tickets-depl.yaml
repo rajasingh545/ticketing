@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticket-depl
+spec:
+  selector:
+    matchLabels:
+      app: tickets
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: tickets
+    spec:
+      # initContainers:
+      # Init containers are exactly like regular containers, except:
+      # - Init containers always run to completion.
+      # - Each init container must complete successfully before the next one starts.
+      containers:
+        - name: tickets
+          image: rajasingh545/tickets
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+            - name: MONGO_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: data-store
+                  key: tickets-mongo-uri
+            - name: API_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: data-store
+                  key: api-path
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tickets-srv
+  namespace: default
+spec:
+  selector:
+    app: tickets
+  type: ClusterIP
+  ports:
+    - name: tickets
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
