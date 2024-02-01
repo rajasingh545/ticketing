@@ -9,7 +9,8 @@
   ],
   "scripts": {
     "test": "jest",
-    "build": "tsc"
+    "build": "tsc",
+    "pub": "git add . && git commit -m \"Update\" && npm version patch && npm run build && npm publish"
   },
   "author": "Rajasingh Selvakumar",
   "license": "ISC",
