@@ -1,6 +1,6 @@
 {
   "name": "@rajasingh545/ticketing-package",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Common package for ticketing services",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -10,7 +10,7 @@
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "pub": "git add . && git commit -m \"Update\" && npm version patch && npm run build && npm publish"
+    "pub": "npm version patch && git add . && git commit -m \"Update\" && npm run build && npm publish"
   },
   "author": "Rajasingh Selvakumar",
   "license": "ISC",
@@ -24,6 +24,7 @@
     "cookie-session": "^2.1.0",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "node-nats-streaming": "^0.3.2"
   }
 }
