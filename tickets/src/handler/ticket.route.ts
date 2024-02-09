@@ -11,7 +11,27 @@ const create = async (req: Request, res: Response) => {
 
   const ticket = await ticketService.create(payload);
 
-  return res.status(201).json({ ticket });
+  return res.status(201).json(ticket);
 };
 
-export const ticketRouteHandler = { create };
+const show = async (req: Request, res: Response) => {
+  const ticket = await ticketService.get(req.params.id);
+  return res.status(200).json(ticket);
+};
+
+const getAll = async (req: Request, res: Response) => {
+  const tickets = await ticketService.getAll();
+  return res.status(200).json(tickets);
+};
+
+const update = async (req: Request, res: Response) => {
+  const ticket = await ticketService.update(
+    req.body,
+    req.params.id,
+    req!.currentUser!.id
+  );
+
+  return res.status(200).json(ticket);
+};
+
+export const ticketRouteHandler = { create, show, getAll, update };

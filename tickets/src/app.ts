@@ -11,6 +11,9 @@ import * as trpcExpress from "@trpc/server/adapters/express";
 
 import { ticketRouter } from "./trpc";
 import { createTicketRouter } from "./routes/new";
+import { showTicketRouter } from "./routes/show";
+import { listTicketRouter } from "./routes";
+import { updateTicketRouter } from "./routes/update";
 
 export const basePath = process.env.API_PATH! ?? "/api";
 
@@ -35,6 +38,9 @@ app.use(
 app.use(currentUser);
 
 app.use(basePath, createTicketRouter);
+app.use(basePath, showTicketRouter);
+app.use(basePath, listTicketRouter);
+app.use(basePath, updateTicketRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();

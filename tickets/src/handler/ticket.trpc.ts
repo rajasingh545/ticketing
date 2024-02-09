@@ -6,8 +6,15 @@ import { trpc } from "../lib";
 const create = trpc.procedure
   .input(
     z.object({
-      title: z.string(),
-      price: z.number(),
+      title: z.string({
+        required_error: "Title is required",
+      }),
+      price: z
+        .number({
+          required_error: "Price is required",
+          invalid_type_error: "Price must be a number",
+        })
+        .gt(0, { message: "Price is required" }),
     })
   )
   .mutation(async ({ input }) => {
