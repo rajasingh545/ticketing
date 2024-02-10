@@ -1,6 +1,8 @@
 import { TRPCError } from "@trpc/server";
 import { ticketRouter } from "../trpc";
 
+jest.mock('../../nats-wrapper');
+
 it("TRPC returns an error if an invalid title is provided", async () => {
   try {
     const payload = { title: "", price: 10 };

@@ -3,6 +3,8 @@ import { Types } from "mongoose";
 
 import { app } from "../../app";
 
+jest.mock('../../nats-wrapper');
+
 const id = new Types.ObjectId().toHexString();
 
 const createTicket = () => {

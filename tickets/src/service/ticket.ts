@@ -3,9 +3,21 @@ import {
   NotFoundError,
 } from "@rajasingh545/ticketing-package";
 import { TicketModel, TicketAttrs } from "../model/ticket";
+import { TickerUpdatePublisher, TicketCreatedPublisher } from "../events";
+import { natsWrapper } from "../nats-wrapper";
 class Ticket {
   public async create(payload: TicketAttrs) {
-    return await TicketModel.build(payload).save();
+    const ticket = TicketModel.build(payload);
+    await ticket.save();
+
+    await new TicketCreatedPublisher(natsWrapper.client).publish({
+      id: ticket.id,
+      title: ticket.title,
+      price: ticket.price,
+      userId: ticket.userId,
+    });
+
+    return ticket;
   }
 
   public async get(payload: string) {
@@ -32,8 +44,16 @@ class Ticket {
       title: payload.title,
       price: payload.price,
     });
+    await ticket.save();
 
-    return await ticket.save();
+    await new TickerUpdatePublisher(natsWrapper.client).publish({
+      id: ticket.id,
+      userId: ticket.userId,
+      title: ticket.title,
+      price: ticket.price,
+    });
+
+    return ticket;
   }
 }
 
