@@ -6,6 +6,7 @@ metadata:
 data:
   tickets-mongo-uri: "mongodb://tickets-mongo-srv:27017/tickets"
   auth-mongo-uri: "mongodb://auth-mongo-srv:27017/auth"
+  orders-mongo-uri: "mongodb://orders-mongo-srv:27017/auth"
   api-path: "/api"
   nats-uri: "http://nats-srv:4222"
   nats-cluster-id: "ticketing"
