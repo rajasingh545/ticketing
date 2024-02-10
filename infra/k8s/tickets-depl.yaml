@@ -25,6 +25,20 @@ spec:
         - name: tickets
           image: rajasingh545/tickets
           env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: data-store
+                  key: nats-uri
+            - name: NATS_CLUSTER_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: data-store
+                  key: nats-cluster-id
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
