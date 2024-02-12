@@ -7,6 +7,12 @@ import {
   errorHandler,
   currentUser,
 } from "@rajasingh545/ticketing-package";
+import {
+  createOrderRoute,
+  deleteOrderRoute,
+  listOrderRoute,
+  showOrderRoute,
+} from "./routes";
 
 export const basePath = process.env.API_PATH! ?? "/api";
 
@@ -29,6 +35,11 @@ app.use(
 // );
 
 app.use(currentUser);
+
+app.use(basePath, createOrderRoute);
+app.use(basePath, deleteOrderRoute);
+app.use(basePath, showOrderRoute);
+app.use(basePath, listOrderRoute);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();

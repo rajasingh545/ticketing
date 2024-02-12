@@ -18,7 +18,7 @@
   "author": "Rajasingh Selvakumar",
   "license": "ISC",
   "dependencies": {
-    "@rajasingh545/ticketing-package": "^1.0.5",
+    "@rajasingh545/ticketing-package": "^1.0.7",
     "@trpc/server": "^10.45.0",
     "@types/cookie-session": "^2.0.44",
     "@types/express": "^4.17.17",
