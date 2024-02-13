@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { version } from "mongoose";
 import { OrderStatus } from "@rajasingh545/ticketing-package";
 
 import { OrderModel } from "./order";
@@ -9,14 +9,21 @@ interface TicketAttrs {
   price: number;
 }
 
+interface TicketEvent {
+  id: string;
+  version: number;
+}
+
 export interface TicketDoc extends mongoose.Document {
   title: string;
   price: number;
+  version: number;
   isReserved: () => Promise<boolean>;
 }
 
 interface TicketModel extends mongoose.Model<TicketDoc> {
   build(attrs: TicketAttrs): TicketDoc;
+  findByEvent(event: TicketEvent): Promise<TicketDoc | null>;
 }
 
 const ticketSchema = new mongoose.Schema<TicketDoc>(
@@ -38,8 +45,17 @@ const ticketSchema = new mongoose.Schema<TicketDoc>(
         delete ret._id;
       },
     },
+    optimisticConcurrency: true,
+    versionKey: "version",
   }
 );
+
+ticketSchema.statics.findByEvent = async (event: TicketEvent) => {
+  return await TicketModel.findOne({
+    _id: event.id,
+    version: event.version - 1,
+  });
+};
 
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
   return new TicketModel({

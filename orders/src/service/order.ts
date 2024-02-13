@@ -42,6 +42,7 @@ class Order {
       userId: order.userId,
       status: order.status,
       expiresAt: order.expiresAt.toISOString(),
+      version: order.version,
       ticket: {
         id: ticket.id,
         price: ticket.price,
@@ -70,6 +71,7 @@ class Order {
 
     await new OrderCancelledPublisher(natsWrapper.client).publish({
       id: order!.id,
+      version: order.version,
       ticket: {
         id: order.ticket.id,
       },

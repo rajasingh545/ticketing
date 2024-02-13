@@ -8,6 +8,7 @@ it("fetches the order", async () => {
   const fakeOrderId = new mongoose.Types.ObjectId();
 
   const ticket = TicketModel.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
     title: "concert",
     price: 20,
   });
@@ -38,6 +39,7 @@ it("fetches the order", async () => {
 
 it("returns a error if one user tries to fetch another users order", async () => {
   const ticket = TicketModel.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
     title: "concert",
     price: 20,
   });

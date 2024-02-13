@@ -4,4 +4,6 @@ export interface CreateTicket {
   id: string;
 }
 
-export type UpdateTicket = CreateTicket;
+export interface UpdateTicket extends CreateTicket {
+  version: number;
+}

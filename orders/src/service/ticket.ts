@@ -8,9 +8,9 @@ class Ticket {
   }
 
   async update(payload: UpdateTicket) {
-    const ticket = await this.findById(payload.id);
+    const ticket = await TicketModel.findByEvent(payload);
     if (!ticket) {
-      new Error("Ticket not found");
+      throw new Error("Ticket not found");
     }
 
     const { title, price } = payload;
