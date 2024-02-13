@@ -15,6 +15,7 @@ class Ticket {
       title: ticket.title,
       price: ticket.price,
       userId: ticket.userId,
+      version: ticket.version,
     });
 
     return ticket;
@@ -51,6 +52,7 @@ class Ticket {
       userId: ticket.userId,
       title: ticket.title,
       price: ticket.price,
+      version: ticket.version,
     });
 
     return ticket;

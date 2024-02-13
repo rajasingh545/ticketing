@@ -21,6 +21,7 @@ interface TicketDoc extends mongoose.Document {
   price: number;
   userId: string;
   createdAt: string;
+  version: number;
 }
 
 const ticketSchema = new mongoose.Schema<TicketDoc>(
@@ -47,6 +48,7 @@ const ticketSchema = new mongoose.Schema<TicketDoc>(
       },
     },
     optimisticConcurrency: true,
+    versionKey: "version",
   }
 );
 
