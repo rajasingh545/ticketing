@@ -1,6 +1,6 @@
 {
   "name": "@rajasingh545/ticketing-package",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Common package for ticketing services",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
