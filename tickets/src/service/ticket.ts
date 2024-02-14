@@ -1,4 +1,5 @@
 import {
+  BadRequestError,
   NotAuthorizedError,
   NotFoundError,
 } from "@rajasingh545/ticketing-package";
@@ -36,6 +37,9 @@ class Ticket {
   public async update(payload: TicketAttrs, id: string, currentUserId: string) {
     const ticket = await TicketModel.findById(id);
     if (!ticket) throw new NotFoundError();
+
+    if (ticket.orderId)
+      throw new BadRequestError("Cannot edit a reserved ticket");
 
     if (ticket.userId !== currentUserId) {
       throw new NotAuthorizedError();

@@ -15,8 +15,12 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
     data: TicketUpdatedEvent["data"],
     msg: Message
   ): Promise<void> {
-    await ticketService.update(data);
+    try {
+      await ticketService.update(data);
 
-    msg.ack();
+      msg.ack();
+    } catch (error) {
+      console.log("Error on the event");
+    }
   }
 }

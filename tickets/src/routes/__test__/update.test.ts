@@ -1,9 +1,10 @@
 import request from "supertest";
-import { Types } from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 import { app } from "../../app";
+import { TicketModel } from "../../model/ticket";
 
-jest.mock('../../nats-wrapper');
+jest.mock("../../nats-wrapper");
 
 const id = new Types.ObjectId().toHexString();
 
@@ -99,4 +100,28 @@ it("updates the ticket provided the valid inputs", async () => {
 
   expect(ticketResponse.body.title).toEqual(payload.title);
   expect(ticketResponse.body.price).toEqual(payload.price);
+});
+
+it("rejects updates if the ticket is reserved", async () => {
+  const cookie = signin();
+  const payload = {
+    title: "Rajasingh",
+    price: 200,
+  };
+  const orderId = new mongoose.Types.ObjectId().toHexString();
+
+  const response = await request(app)
+    .post("/api/tickets")
+    .set("Cookie", cookie)
+    .send({ title: "Developers", price: 10 });
+
+  const ticket = await TicketModel.findById(response.body.id);
+  ticket?.set({ orderId });
+  await ticket?.save();
+
+  await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set("Cookie", cookie)
+    .send(payload)
+    .expect(400);
 });
