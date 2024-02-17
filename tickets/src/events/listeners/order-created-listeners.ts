@@ -15,7 +15,11 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     data: OrderCreatedEvent["data"],
     msg: Message
   ): Promise<void> {
-    await orderEventService.create(data);
-    msg.ack();
+    try {
+      await orderEventService.create(data);
+      msg.ack();
+    } catch (err) {
+      console.log("Ticket Order Cancel Error: ", err);
+    }
   }
 }

@@ -16,7 +16,7 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
       await orderEventService.cancel(data);
       msg.ack();
     } catch (err) {
-      console.log(err);
+      console.log("Ticket Order Created Error:", err);
     }
   }
 }

@@ -10,3 +10,4 @@ data:
   api-path: "/api"
   nats-uri: "http://nats-srv:4222"
   nats-cluster-id: "ticketing"
+  expiration-redis-host: expiration-redis-srv

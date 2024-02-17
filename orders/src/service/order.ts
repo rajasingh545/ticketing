@@ -9,7 +9,7 @@ import { CancelOrder, CreateOrder, ShowOrder } from "../types";
 import { OrderCancelledPublisher, OrderCreatedPublisher } from "../events";
 import { natsWrapper } from "../nats-wrapper";
 
-const EXPIRATION_WINDOW_SECONDS = 15 * 60;
+const EXPIRATION_WINDOW_SECONDS = 1 * 60;
 
 class Order {
   private ticket = ticketService;
